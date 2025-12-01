@@ -1,1 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Othello Study Deck | Calm Revision Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --coffee: #3c2f2f;
+      --latte: #f7efe5;
+      --foam: #f2d7c1;
+      --caramel: #c59b75;
+      --text: #201715;
+      --soft: #7f675b;
+      --card: #fffaf5;
+      --success: #3b7d57;
+      --muted: #6f5c55;
+      --shadow: 0 10px 40px rgba(60, 47, 47, 0.15);
+    }
 
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #fdf7f0 0%, #f3e8dd 45%, #f8f1e6 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: radial-gradient(circle at 20% 20%, rgba(197, 155, 117, 0.28), transparent 35%),
+        radial-gradient(circle at 80% 0%, rgba(60, 47, 47, 0.24), transparent 40%),
+        linear-gradient(120deg, #f9f1e6, #f2d7c1);
+      padding: 60px 20px 80px;
+      color: var(--coffee);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1600&q=80') center/cover;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1100px;
+      margin: 0 auto 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-size: 1.1rem;
+      color: var(--coffee);
+    }
+
+    nav a {
+      color: var(--coffee);
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 600;
+      padding: 10px 14px;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+
+    nav a:hover {
+      background: rgba(60, 47, 47, 0.08);
+      color: var(--text);
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      margin: 0 0 16px;
+      color: var(--coffee);
+      letter-spacing: -0.01em;
+    }
+
+    .pill-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .pill {
+      padding: 8px 14px;
+      background: rgba(60, 47, 47, 0.1);
+      border-radius: 999px;
+      font-weight: 600;
+      color: var(--coffee);
+      font-size: 0.9rem;
+    }
+
+    .hero p {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 18px;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn.primary {
+      background: linear-gradient(120deg, #c59b75, #3c2f2f);
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .btn.secondary {
+      background: #fff5ec;
+      color: var(--coffee);
+      border: 1px solid rgba(60, 47, 47, 0.1);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(60, 47, 47, 0.18);
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(60, 47, 47, 0.06);
+    }
+
+    .section {
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .section h2 {
+      margin-bottom: 12px;
+      color: var(--coffee);
+      letter-spacing: -0.01em;
+    }
+
+    .section p.lead {
+      color: var(--muted);
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .grid.columns-3 {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .grid.columns-2 {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 12px;
+      background: rgba(197, 155, 117, 0.18);
+      color: var(--coffee);
+      font-weight: 700;
+      font-size: 0.8rem;
+      margin-bottom: 8px;
+    }
+
+    .mini-list {
+      padding-left: 18px;
+      margin: 10px 0;
+      color: var(--muted);
+    }
+
+    .quote-card {
+      perspective: 1200px;
+    }
+
+    .quote-inner {
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.7s ease;
+      min-height: 260px;
+    }
+
+    .quote-card.is-flipped .quote-inner {
+      transform: rotateY(180deg);
+    }
+
+    .quote-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .quote-back {
+      transform: rotateY(180deg);
+      background: #3c2f2f;
+      color: #f8f1e6;
+    }
+
+    .quote-text {
+      font-weight: 700;
+      color: var(--coffee);
+      line-height: 1.4;
+    }
+
+    .blank-space {
+      display: inline-block;
+      min-width: 80px;
+      padding: 2px 4px;
+      background: rgba(197, 155, 117, 0.2);
+      border-radius: 10px;
+      border: 1px dashed rgba(60, 47, 47, 0.3);
+    }
+
+    .input-row input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(60, 47, 47, 0.2);
+      background: #fff7f0;
+      font-weight: 600;
+    }
+
+    .input-row label {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .status {
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .status.ok {
+      color: var(--success);
+    }
+
+    .act-filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .filter-btn {
+      background: #fff;
+      border-radius: 999px;
+      padding: 8px 14px;
+      border: 1px solid rgba(60, 47, 47, 0.12);
+      color: var(--coffee);
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn.active {
+      background: linear-gradient(120deg, #c59b75, #3c2f2f);
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .pill-title {
+      font-weight: 700;
+      color: var(--coffee);
+      margin: 6px 0 0;
+    }
+
+    .exam-card h3 {
+      margin: 0;
+      color: var(--coffee);
+    }
+
+    .exam-card .mini-list li strong {
+      color: var(--coffee);
+    }
+
+    footer {
+      background: #3c2f2f;
+      color: #f6eee4;
+      padding: 30px 20px;
+    }
+
+    footer .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      align-items: center;
+    }
+
+    .link-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .link-chip {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 12px;
+      border-radius: 12px;
+      color: #f6eee4;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      nav a {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">Othello Latte Lab</div>
+      <div>
+        <a href="#quotes">Quotes</a>
+        <a href="#revision">Revision</a>
+        <a href="#exam">Exam Boost</a>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div>
+        <div class="pill-row">
+          <span class="pill">Calm + Focused</span>
+          <span class="pill">Act-by-Act</span>
+          <span class="pill">Exam Ready</span>
+        </div>
+        <h1>Othello study space with latte warmth and zero cringe.</h1>
+        <p>Flashcards you can fill, act-filtered quotes, relationship maps, quick theme drops, and practice answers ready to copy into your planning doc. Built to rival the vibe of StudyClix but calmer and richer.</p>
+        <div class="cta-row">
+          <button class="btn primary" onclick="document.getElementById('quotes').scrollIntoView({behavior: 'smooth'});">Jump to quotes</button>
+          <button class="btn secondary" onclick="document.getElementById('exam').scrollIntoView({behavior: 'smooth'});">Exam boosters</button>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag">Crash map</span>
+        <h3>Fast map of the play</h3>
+        <div class="mini-list">
+          <ul>
+            <li><strong>Acts I-II:</strong> Venice set-up ➜ secret marriage ➜ Iago seeds doubt.</li>
+            <li><strong>Act III:</strong> Handkerchief becomes proof, jealousy blooms.</li>
+            <li><strong>Act IV:</strong> Othello spirals; Desdemona’s pleas read as guilt.</li>
+            <li><strong>Act V:</strong> Truth arrives too late; tragedy locks in.</li>
+          </ul>
+        </div>
+        <p style="color: var(--muted); margin: 10px 0 0;">Use this to orient any quote or theme. Ask: where in the spiral does it land?</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="quotes">
+    <h2>Quotes flashcards — fill the blank, flip for meaning</h2>
+    <p class="lead">Filter by act, complete the missing words, then flip for context and exam-ready uses.</p>
+    <div class="act-filters" id="actFilters"></div>
+    <div class="grid columns-3" id="flashcardGrid"></div>
+  </section>
+
+  <section class="section" id="revision">
+    <h2>Revision vault</h2>
+    <p class="lead">Character relationships, theme nuggets, and scene anchors to reuse in short answers or essays.</p>
+    <div class="grid columns-3">
+      <div class="card">
+        <span class="tag">Characters</span>
+        <h3>Main pairings</h3>
+        <ul class="mini-list">
+          <li><strong>Othello ⇄ Desdemona:</strong> Love that is tender yet isolated; cracks appear when public trust is questioned.</li>
+          <li><strong>Othello ⇄ Iago:</strong> Soldierly trust exploited; Iago weaponises honest-talk tone.</li>
+          <li><strong>Desdemona ⇄ Emilia:</strong> Friendship that exposes gender expectations and the cost of silence.</li>
+          <li><strong>Roderigo ⇄ Iago:</strong> A gullible bankroll; shows Iago’s manipulation template.</li>
+        </ul>
+        <p class="status">Exam angle: map any conflict to a frayed trust line.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Themes</span>
+        <h3>Theme sparks</h3>
+        <ul class="mini-list">
+          <li><strong>Jealousy:</strong> Fed by scraps (the handkerchief) until it feels like proof.</li>
+          <li><strong>Race & otherness:</strong> Outsider status fuels insecurity and prejudice.</li>
+          <li><strong>Appearance vs reality:</strong> Iago’s self-brand as “honest” masks the play’s rot.</li>
+          <li><strong>Gender & control:</strong> Women’s speech is policed; silence is deadly.</li>
+        </ul>
+        <p class="status">Drop one theme per paragraph; pair with a quote that shows movement.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Structural moves</span>
+        <h3>Moments to cite</h3>
+        <ul class="mini-list">
+          <li><strong>Storm at Cyprus:</strong> External chaos mirrors internal turbulence.</li>
+          <li><strong>Handkerchief scene:</strong> A prop that becomes “ocular proof.”</li>
+          <li><strong>Othello’s trance:</strong> Physical collapse = mind conquered.</li>
+          <li><strong>Final speech:</strong> Self-judgment swings between insight and excuse.</li>
+        </ul>
+        <p class="status">Use moments as paragraph hinges: before/after effect on characters.</p>
+      </div>
+    </div>
+
+    <div class="grid columns-2" style="margin-top: 24px;">
+      <div class="card">
+        <span class="tag">Relationships</span>
+        <h3>Quick relationship map</h3>
+        <div class="two-col">
+          <div>
+            <p class="pill-title">Trust fallers</p>
+            <ul class="mini-list">
+              <li>Othello relies on Iago’s “honesty” more than Desdemona’s truth.</li>
+              <li>Cassio’s reputation crash shows how brittle honour culture is.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="pill-title">Truth tellers</p>
+            <ul class="mini-list">
+              <li>Emilia names the harm (jealousy, double standards) but too late.</li>
+              <li>Desdemona’s constancy reads as guilt to a primed audience.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag">Scene anchors</span>
+        <h3>Anchor a paragraph</h3>
+        <ul class="mini-list">
+          <li><strong>Act I, Senate:</strong> Othello’s composed defence = controlled rhetoric.</li>
+          <li><strong>Act II, Celebration:</strong> Iago lights the fuse by pushing Cassio to drink.</li>
+          <li><strong>Act III, Temptation:</strong> Long persuasion scene turns gossip into obsession.</li>
+          <li><strong>Act V, Bedchamber:</strong> Intimacy weaponised; tragedy is domestic.</li>
+        </ul>
+        <p class="status">Quote + anchor = instant paragraph skeleton.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="exam">
+    <h2>Exam practice vault</h2>
+    <p class="lead">Use these to rehearse timing and structure. Copy the skeletons into your study doc and rehearse under 10–15 minute bursts.</p>
+    <div class="grid columns-2">
+      <div class="card exam-card">
+        <span class="tag">Sample Q</span>
+        <h3>“Explore how jealousy shapes the tragedy in Othello.”</h3>
+        <ul class="mini-list">
+          <li><strong>Line of argument:</strong> Jealousy is planted by rhetoric, not evidence, and hardens into identity.</li>
+          <li><strong>Para 1:</strong> Iago’s language (“monster”) gives jealousy a body; Othello repeats the metaphor.</li>
+          <li><strong>Para 2:</strong> Handkerchief as proof — how props overrun reason.</li>
+          <li><strong>Para 3:</strong> Jealousy isolates: breaks marital dialogue; closes off counsel from Emilia.</li>
+          <li><strong>Close:</strong> Final speech shows jealousy survived the truth; tragic insight arrives late.</li>
+        </ul>
+      </div>
+      <div class="card exam-card">
+        <span class="tag">Model paragraph</span>
+        <h3>Response starter</h3>
+        <p>“Jealousy in <em>Othello</em> is verbal before it is visual. Iago scripts it as a ‘green-eyed monster,’ turning a feeling into a creature Othello can imagine. Once Othello repeats the metaphor, jealousy becomes self-fuelling. Shakespeare shows how metaphor reshapes identity: the general who once trusted evidence now trusts an image.”</p>
+        <p class="status">Use: drop this as Para 1 then attach your own quote.</p>
+      </div>
+    </div>
+
+    <div class="grid columns-3" style="margin-top: 20px;">
+      <div class="card exam-card">
+        <span class="tag">Practice set</span>
+        <h3>Timed drills</h3>
+        <ul class="mini-list">
+          <li>5 quotes, 7 minutes: match to act + theme + effect on relationship.</li>
+          <li>One paragraph, 10 minutes: defend Cassio as the tragic counterweight.</li>
+          <li>30-minute essay: “Women in <em>Othello</em> resist quietly; discuss.”</li>
+        </ul>
+        <p class="status">Set a timer; stop writing when it rings to rehearse pacing.</p>
+      </div>
+      <div class="card exam-card">
+        <span class="tag">Evidence bank</span>
+        <h3>Useable phrases</h3>
+        <ul class="mini-list">
+          <li>“Iago’s ‘honesty’ becomes social armour that blocks scrutiny.”</li>
+          <li>“The handkerchief shifts from love token to surveillance device.”</li>
+          <li>“Public performance (Senate) vs private collapse (bedroom) charts Othello’s undoing.”</li>
+        </ul>
+        <p class="status">Memorise 3–4 phrased insights to drop into any answer.</p>
+      </div>
+      <div class="card exam-card">
+        <span class="tag">Resource links</span>
+        <h3>Trusted, non-cringe sources</h3>
+        <ul class="mini-list">
+          <li>Royal Shakespeare Company education notes (search “RSC Othello education”).</li>
+          <li>Folger Shakespeare Library lesson plans for <em>Othello</em>.</li>
+          <li>BBC Bitesize (Higher English Othello) for quick refreshers.</li>
+        </ul>
+        <p class="status">Pair these with your own handwritten examples to lock memory.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <h3 style="margin: 0 0 8px;">Stay steady</h3>
+        <p style="margin: 0; color: #e7d7c9;">Latte palette, calm tone, exam-grade content. You’ve got this.</p>
+      </div>
+      <div class="link-row">
+        <a class="link-chip" href="#quotes">Quotes deck</a>
+        <a class="link-chip" href="#revision">Revision vault</a>
+        <a class="link-chip" href="#exam">Exam practice</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const flashcards = [
+      {
+        act: 'Act I',
+        quote: 'I am not what I {{1}}.',
+        blanks: ['am'],
+        meaning: 'Iago openly declares his duplicity before anyone listens — the play’s honesty/reality tension is set here.',
+        uses: ['Link to theme: appearance vs reality.', 'Contrast with Othello’s early straight-speaking confidence.', 'Use as opening to show dramatic irony.']
+      },
+      {
+        act: 'Act I',
+        quote: 'Look to her, Moor, if thou hast eyes to see: she has deceived her father, and may {{1}}.',
+        blanks: ['thee'],
+        meaning: 'Brabantio weaponises Desdemona’s independence to seed doubt. It foreshadows how public opinion pressures Othello.',
+        uses: ['Great for paragraph on racialised suspicion.', 'Shows early cracks in trust despite Senate victory.', 'Pairs with Act III jealousy growth.']
+      },
+      {
+        act: 'Act II',
+        quote: 'Our bodies are our gardens, to the which our wills are {{1}}.',
+        blanks: ['gardeners'],
+        meaning: 'Iago argues that desire can be controlled — irony because he manipulates others instead of himself.',
+        uses: ['Theme: control vs chaos.', 'Character: Iago’s philosophy of self-fashioning.', 'Use to show persuasive rhetoric.']
+      },
+      {
+        act: 'Act II',
+        quote: 'Reputation, reputation, reputation! O, I have lost my {{1}}!',
+        blanks: ['reputation'],
+        meaning: 'Cassio panics after the brawl; honour culture is fragile and easily weaponised by Iago.',
+        uses: ['Link to masculinity and status.', 'Sets up Iago’s “doctor” role in Act III.', 'Shows how small actions snowball into tragedy.']
+      },
+      {
+        act: 'Act III',
+        quote: 'O, beware, my lord, of jealousy; It is the {{1}} which doth mock the meat it feeds on.',
+        blanks: ['green-eyed monster'],
+        meaning: 'Iago names jealousy as a consuming creature, planting an image Othello cannot shake.',
+        uses: ['Theme: jealousy as self-sustaining.', 'Language: metaphor that becomes reality.', 'Use to start any jealousy essay.']
+      },
+      {
+        act: 'Act III',
+        quote: 'Trifles light as air are to the jealous confirmations strong as proofs of {{1}}.',
+        blanks: ['holy writ'],
+        meaning: 'Iago knows tiny hints will feel like sacred evidence to Othello once jealousy takes root.',
+        uses: ['Great for paragraph on evidence vs feeling.', 'Pairs with handkerchief scene.', 'Shows Iago’s cynical insight.']
+      },
+      {
+        act: 'Act IV',
+        quote: 'A horned man\'s a {{1}} and a {{2}}.',
+        blanks: ['monster', 'beast'],
+        meaning: 'Othello equates cuckoldry with monstrosity, showing how jealousy dehumanises him.',
+        uses: ['Track character degradation.', 'Link to Iago’s “monster” image gaining power.', 'Use to discuss masculinity and public shame.']
+      },
+      {
+        act: 'Act IV',
+        quote: 'This is a subtle {{1}}, a closet lock and key of villainous {{2}}.',
+        blanks: ['whore', 'secrets'],
+        meaning: 'Othello’s language turns cruel; he imagines Desdemona as deceptive space, not person.',
+        uses: ['Evidence of rhetoric turning violent.', 'Shows breakdown of marital communication.', 'Connect to theme of women’s voices being shut down.']
+      },
+      {
+        act: 'Act V',
+        quote: 'Then must you speak of one that loved not wisely but too {{1}}.',
+        blanks: ['well'],
+        meaning: 'Othello frames himself as overly loving rather than overly jealous — a self-protecting spin.',
+        uses: ['Great for conclusion analysis.', 'Debate: is this honest self-judgment or excuse?', 'Connect to tragic insight arriving too late.']
+      },
+      {
+        act: 'Act V',
+        quote: 'Commend me to my kind {{1}}: O, {{2}}!',
+        blanks: ['lord', 'farewell'],
+        meaning: 'Desdemona protects Othello with her last breath, highlighting her steadfast loyalty.',
+        uses: ['Contrast with Othello’s suspicion.', 'Use in essays on innocence and loyalty.', 'Shows tragic cost of misreading.']
+      }
+    ];
+
+    const actFilters = ['All', 'Act I', 'Act II', 'Act III', 'Act IV', 'Act V'];
+
+    const filtersContainer = document.getElementById('actFilters');
+    const flashcardGrid = document.getElementById('flashcardGrid');
+
+    function formatQuote(text, blanks, reveal = false) {
+      return text.replace(/{{(\d+)}}/g, (match, number) => {
+        const index = Number(number) - 1;
+        const answer = blanks[index];
+        return reveal
+          ? `<span class="blank-space">${answer}</span>`
+          : `<span class="blank-space" data-index="${index}">_____</span>`;
+      });
+    }
+
+    function renderFilters(active = 'All') {
+      filtersContainer.innerHTML = actFilters
+        .map(
+          (act) => `<button class="filter-btn ${act === active ? 'active' : ''}" data-act="${act}">${act}</button>`
+        )
+        .join('');
+      filtersContainer.querySelectorAll('button').forEach((btn) =>
+        btn.addEventListener('click', () => renderFlashcards(btn.dataset.act))
+      );
+    }
+
+    function renderFlashcards(filterAct = 'All') {
+      renderFilters(filterAct);
+      const cards = flashcards.filter((card) => filterAct === 'All' || card.act === filterAct);
+      flashcardGrid.innerHTML = cards
+        .map((card, idx) => {
+          const quoteHtml = formatQuote(card.quote, card.blanks);
+          return `
+            <div class="card quote-card" data-index="${idx}">
+              <div class="quote-inner">
+                <div class="quote-face quote-front">
+                  <span class="tag">${card.act}</span>
+                  <div class="quote-text">${quoteHtml}</div>
+                  <div class="input-row">
+                    ${card.blanks
+                      .map(
+                        (blank, i) => `
+                          <label>Blank ${i + 1}
+                            <input type="text" placeholder="type it" data-answer="${blank.toLowerCase()}" />
+                          </label>`
+                      )
+                      .join('')}
+                  </div>
+                  <div class="cta-row" style="margin-top: auto;">
+                    <button class="btn secondary check-btn">Check</button>
+                    <button class="btn primary flip-btn">Flip</button>
+                  </div>
+                  <p class="status" aria-live="polite"></p>
+                </div>
+                <div class="quote-face quote-back">
+                  <span class="tag" style="background: rgba(255,255,255,0.15); color: #fff;">Meaning</span>
+                  <p style="margin: 0; font-weight: 700; line-height: 1.5;">${formatQuote(card.quote, card.blanks, true)}</p>
+                  <p style="margin: 8px 0 0;">${card.meaning}</p>
+                  <ul class="mini-list" style="color:#f4e8dc;">
+                    ${card.uses.map((use) => `<li>${use}</li>`).join('')}
+                  </ul>
+                  <button class="btn secondary flip-btn" style="margin-top: auto; color:#3c2f2f; background:#f4e8dc;">Back</button>
+                </div>
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+
+      flashcardGrid.querySelectorAll('.quote-card').forEach((cardEl, cardIndex) => {
+        const inner = cardEl.querySelector('.quote-inner');
+        const status = cardEl.querySelector('.status');
+
+        cardEl.querySelectorAll('.flip-btn').forEach((btn) =>
+          btn.addEventListener('click', () => cardEl.classList.toggle('is-flipped'))
+        );
+
+        cardEl.querySelector('.check-btn').addEventListener('click', () => {
+          const inputs = cardEl.querySelectorAll('input');
+          let correct = 0;
+          inputs.forEach((input) => {
+            const answer = input.dataset.answer;
+            if (input.value.trim().toLowerCase() === answer) {
+              correct += 1;
+              input.style.borderColor = 'var(--success)';
+            } else {
+              input.style.borderColor = '#d35f5f';
+            }
+          });
+          if (correct === inputs.length) {
+            status.textContent = 'Perfect. Flip to lock in the meaning.';
+            status.classList.add('ok');
+          } else {
+            status.textContent = `Keep going — ${inputs.length - correct} blank(s) left.`;
+            status.classList.remove('ok');
+          }
+        });
+      });
+    }
+
+    renderFlashcards();
+  </script>
+</body>
+</html>
